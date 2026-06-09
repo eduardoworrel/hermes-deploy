@@ -1,0 +1,22 @@
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install hermes-agent from the official image's files
+COPY --from=ghcr.io/nousresearch/hermes-agent:latest /opt/hermes /opt/hermes
+COPY --from=ghcr.io/nousresearch/hermes-agent:latest /opt/data /opt/data
+
+# Make hermes available
+ENV PATH="/opt/hermes/venv/bin:$PATH"
+
+# Create writable dirs
+RUN mkdir -p /run /tmp /opt/data
+
+WORKDIR /opt/data
+
+EXPOSE 8080
+
+ENTRYPOINT ["hermes"]
+CMD ["gateway", "run"]

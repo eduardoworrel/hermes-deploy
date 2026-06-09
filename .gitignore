@@ -1,0 +1,6 @@
+.hermes/
+__pycache__/
+.env
+*.tar.gz
+whatsapp-session/
+.guara.json

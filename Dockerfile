@@ -1,0 +1,9 @@
+FROM ghcr.io/nousresearch/hermes-agent:latest
+
+# Guara runs as uid 1000, not root. Create writable dirs.
+RUN mkdir -p /run /tmp && \
+    chmod 1777 /run /tmp
+
+# Override entrypoint to skip s6-overlay (needs root)
+ENTRYPOINT ["hermes"]
+CMD ["gateway", "run"]

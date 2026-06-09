@@ -1,0 +1,19 @@
+version: "1.0"
+
+model:
+  provider: opencode-go
+  name: opencode-go
+
+providers:
+  opencode-go:
+    type: openai-compatible
+    base_url: https://api.opencode.ai/v1
+    api_key: ${OPENCODE_GO_API_KEY}
+    model: opencode-go
+
+gateway:
+  whatsapp:
+    enabled: false
+
+security:
+  allowed_numbers: []
